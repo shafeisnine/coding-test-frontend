@@ -1,3 +1,8 @@
+1. After clone run npm install on command prompt in project directory.
+2. ng serve to compile and running the prjoect.
+
+
+
 # Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0.
