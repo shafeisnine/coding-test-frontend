@@ -1,0 +1,163 @@
+
+<div class="toolbar" >
+  <img
+    width="40"
+    alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+  />
+  <span>Welcome</span>
+    <div class="spacer"></div>  
+</div>
+
+<form [id]="formId" [formGroup]="form" enctype="multipart/form-data" onsubmit="" novalidate>
+  <div class="content" >
+    <div style="text-align: center;">
+      <h2>Add Customer</h2>
+    </div>
+  
+    <div
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayout.sm="column"
+    fxLayoutGap="10px"
+    >
+          <div
+            fxFlex="0 1 calc(33% - 10px)"
+            fxFlex.lt-md="0 1 calc(100% - 10px)"
+            fxFlex.lt-sm="100%"
+            fxFlex.xs="100%">
+                <mat-form-field appearance="outline" class="formfieldWidth">
+                  <mat-label>Name</mat-label>
+                  <input matInput placeholder="Placeholder"  formControlName="name" >
+                  <mat-error >Please enter a carecter between 3 to 35</mat-error>
+                </mat-form-field>
+          </div>
+          <div
+            fxFlex="0 1 calc(33% - 10px)"
+            fxFlex.lt-md="0 1 calc(100% - 10px)"
+            fxFlex.lt-sm="100%"
+            fxFlex.xs="100%">
+            <mat-form-field appearance="outline" class="formfieldWidth">
+              <mat-label>Date of birth</mat-label>
+              <input matInput [matDatepicker]="picker" (dateChange)="onChangeDOB($event.value)" formControlName="dob">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="customerDateOfBirth" > age is below 18</mat-error>
+            </mat-form-field>
+          </div>
+          <div
+            fxFlex="0 1 calc(33% - 10px)"
+            fxFlex.lt-md="0 1 calc(100% - 10px)"
+            fxFlex.lt-sm="100%"
+            fxFlex.xs="100%" >
+
+            <mat-form-field appearance="outline" class="formfieldWidth">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender" name="Gander">
+                <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                  {{gender.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+                <!-- <mat-form-field appearance="outline"  class="formfieldWidth">
+                  <mat-label>Outline form field</mat-label>
+                  <input matInput placeholder="Placeholder" formControlName="gender" >
+                </mat-form-field> -->
+          </div>
+    </div>
+    <h4>Nominees</h4>
+    <div
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayout.sm="column"
+    fxLayoutGap="10px"
+    >
+          <div
+            fxFlex="0 1 calc(30% - 10px)"
+            fxFlex.lt-md="0 1 calc(100% - 10px)"
+            fxFlex.lt-sm="100%"
+            fxFlex.xs="100%">
+                <mat-form-field appearance="outline" class="formfieldWidth">
+                  <mat-label>Name</mat-label>
+                  <input matInput placeholder="Placeholder" formControlName="value1" >
+                </mat-form-field>
+          </div>
+          <div
+            fxFlex="0 1 calc(30% - 10px)"
+            fxFlex.lt-md="0 1 calc(100% - 10px)"
+            fxFlex.lt-sm="100%"
+            fxFlex.xs="100%">
+                <mat-form-field appearance="outline" class="formfieldWidth">
+                  <mat-label>Date of birth</mat-label>
+                  <input matInput [matDatepicker]="picker1" (dateChange)="onChangeNomineeDOB($event.value)" formControlName="value2">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+          </div>
+          <div
+            fxFlex="0 1 calc(30% - 10px)"
+            fxFlex.lt-md="0 1 calc(100% - 10px)"
+            fxFlex.lt-sm="100%"
+            fxFlex.xs="100%" >
+              
+                <mat-form-field appearance="outline" class="formfieldWidth">
+                  <mat-label>Gender</mat-label>
+                  <mat-select formControlName="value3" name="Gander">
+                    <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                      {{gender.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+          </div>
+          <div>
+            <button mat-fab color="primary"[disabled]="this.nomineedatavalidate" (click)="addItem()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+    </div>
+    
+  </div>
+
+</form>
+<div fxLayout="row">
+  <table class="nomineeTable">
+    <tr>
+      <th >Name</th>
+      <th>Date Of Birth</th>
+      <th>Gender</th>
+      <th>&nbsp;</th>
+    </tr>
+    <tr *ngFor="let nominee of nomineeData ; let i = index">
+      <td>{{nominee.name}}</td>
+      <td>{{nominee.dob | date: 'dd-MM-yyyy'}}</td>
+      <td>{{nominee.gender}}</td>
+      <td>
+        <button mat-icon-button (click)="removeNominee(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        
+      </td>
+    </tr>
+    
+  </table>
+</div>
+<div fxLayout="row" >
+  <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          style="width: 85px"
+          [disabled]="!this.form.valid || !this.nomineeData"
+          (click)="addCustomer(form.value)"
+          fxFlexOffset="43%"
+          style="width: 200px; margin-top : 20px;"
+          >
+      Submit
+</button>
+</div>
+
+
+
+
+
+<router-outlet></router-outlet>
